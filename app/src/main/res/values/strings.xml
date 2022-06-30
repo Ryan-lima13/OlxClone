@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">OlxClone</string>
+    <string name="logo">logo</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="logar">Logar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="acessar">Acessar</string>
+</resources>
