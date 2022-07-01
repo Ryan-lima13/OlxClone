@@ -6,4 +6,7 @@
     <string name="logar">Logar</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="acessar">Acessar</string>
+    <string name="meusAnucios">MeusAnucios</string>
+    <string name="sair">Sair</string>
+    <string name="entrar">Cadastrar / Entrar</string>
 </resources>
