@@ -9,4 +9,9 @@
     <string name="meusAnucios">MeusAnucios</string>
     <string name="sair">Sair</string>
     <string name="entrar">Cadastrar / Entrar</string>
+    <string name="add">add</string>
+    <string name="titulo">Título</string>
+    <string name="valor">Valor</string>
+    <string name="descricao">Descrição</string>
+    <string name="cadastrarAnucio">Cadastrar anúcio</string>
 </resources>

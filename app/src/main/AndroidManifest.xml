@@ -14,6 +14,9 @@
         android:theme="@style/Theme.OlxClone"
         tools:targetApi="31">
         <activity
+            android:name="activity.CadastroAnuciosActivity2"
+            android:exported="false" />
+        <activity
             android:name="activity.MeusAnuciosActivity2"
             android:exported="false" />
         <activity
