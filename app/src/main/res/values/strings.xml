@@ -14,4 +14,5 @@
     <string name="valor">Valor</string>
     <string name="descricao">Descrição</string>
     <string name="cadastrarAnucio">Cadastrar anúcio</string>
+    <string name="telefone">Telefone</string>
 </resources>

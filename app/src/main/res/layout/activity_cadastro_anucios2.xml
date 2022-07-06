@@ -79,6 +79,20 @@
         app:allow_negative_values="true"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/editTelefone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:hint="@string/telefone"
+        android:inputType="number"
+        android:padding="10dp"
+        app:mask="(##) #####-####"
+        app:maskCharacter="#"
+        app:maskStyle="completable"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <EditText
         android:id="@+id/editDescricao"
         android:layout_width="match_parent"
