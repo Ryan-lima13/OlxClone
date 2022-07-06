@@ -56,30 +56,35 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="@string/titulo"
         android:inputType="textPersonName"
         android:padding="10dp" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
+    <com.blackcat.currencyedittext.CurrencyEditText
+        android:id="@+id/edittextValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="@string/valor"
         android:inputType="textPersonName"
-        android:padding="10dp" />
+        android:padding="10dp"
+        app:allow_negative_values="true"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/editDescricao"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="@string/descricao"
         android:inputType="textPersonName"
@@ -89,5 +94,6 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="salvarAnucio"
         android:text="@string/cadastrarAnucio" />
 </LinearLayout>
