@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import dmax.dialog.SpotsDialog;
 import helper.CongiguracaoFirebase;
 import helper.Permissoes;
 import model.Anucio;
@@ -45,6 +46,8 @@ public class CadastroAnuciosActivity2 extends AppCompatActivity implements View.
     private MaskEditText campoTelefone;
     private Spinner spinnerEstado, spinnerCategoria;
     private Anucio anucio;
+    private android.app.AlertDialog dialog;
+
     private StorageReference storage;
     private ImageView imageView1,imageView2,imageView3;
     private  String[] permissoes = new String[]{
@@ -174,12 +177,13 @@ public class CadastroAnuciosActivity2 extends AppCompatActivity implements View.
     }
     public  void validarDadosAnucios(View view){
          anucio = configurarAnucios();
+        String valor = String.valueOf(campoValor.getRawValue());
 
         if(listaFotosREcuperadas.size()!= 0){
             if(!anucio.getEstado().isEmpty()){
                 if(!anucio.getCategoria().isEmpty()){
                     if(!anucio.getTitulo().isEmpty()){
-                        if(!anucio.getValor().isEmpty() && !anucio.getValor().equals("0")){
+                        if(!valor.isEmpty() && !valor.equals("0")){
                             if(!anucio.getTelefone().isEmpty()){
                                 if(!anucio.getDescricao().isEmpty()){
                                     // salvar anucios
@@ -226,6 +230,12 @@ public class CadastroAnuciosActivity2 extends AppCompatActivity implements View.
 
     }
     public  void salvarAnucio(){
+        dialog = new SpotsDialog.Builder().setContext(this)
+                .setMessage("Salvando Anúncios")
+                .setCancelable(false)
+                .build();
+        dialog.show();
+
         // salvar imagem no storage
         for (int i = 0;  i < listaFotosREcuperadas.size(); i++){
             String urlImagem = listaFotosREcuperadas.get(i);
@@ -241,7 +251,7 @@ public class CadastroAnuciosActivity2 extends AppCompatActivity implements View.
         String estado = spinnerEstado.getSelectedItem().toString();
         String categoria = spinnerCategoria.getSelectedItem().toString();
         String titulo = campoTitulo.getText().toString();
-        String valor = String.valueOf(campoValor.getRawValue());
+        String valor = campoValor.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String descricao = campoDescricao.getText().toString();
          Anucio anucio = new Anucio();
@@ -274,6 +284,8 @@ public class CadastroAnuciosActivity2 extends AppCompatActivity implements View.
                        if(totalFotos == listaUrlFotos.size()){
                            anucio.setFotos(listaUrlFotos);
                            anucio.salvar();
+                           dialog.dismiss();
+                           finish();
 
                        }
 

@@ -28,6 +28,16 @@ public class Anucio {
        anucioRef.child(idUsuario)
                .child(getIdAnucios())
                .setValue(this);
+       salvarAnucioPublico();
+
+    }
+    public  void salvarAnucioPublico(){
+        DatabaseReference anucioRef = CongiguracaoFirebase.getDatabaseReference()
+                .child("anuncios");
+        anucioRef.child(getEstado())
+                .child(getCategoria())
+                .child(getIdAnucios())
+                .setValue(this);
 
     }
 

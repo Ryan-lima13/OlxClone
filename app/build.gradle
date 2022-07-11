@@ -43,4 +43,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.github.santalu:maskara:1.0.0'
     implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }
