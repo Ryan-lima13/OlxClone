@@ -15,4 +15,34 @@
     <string name="descricao">Descrição</string>
     <string name="cadastrarAnucio">Cadastrar anúcio</string>
     <string name="telefone">Telefone</string>
+    <string-array name="estados">
+        <item>AC</item>
+        <item>AL</item>
+        <item>AM</item>
+        <item>AP</item>
+        <item>BA</item>
+        <item>CE</item>
+        <item>DF</item>
+        <item>GO</item>
+        <item>MA</item>
+        <item>MG</item>
+        <item>MS</item>
+        <item>PA</item>
+        <item>PB</item>
+        <item>PE</item>
+        <item>PI</item>
+        <item>PR</item>
+        <item>RJ</item>
+        <item>RN</item>
+    </string-array>
+    <string-array name="categoria">
+        <item>Automóveis</item>
+        <item>Imóveis</item>
+        <item>Eletronicos</item>
+        <item>Moda</item>
+        <item>Esportes</item>
+        <item>Música</item>
+        <item>Infantil</item>
+        <item>Agro</item>
+    </string-array>
 </resources>
