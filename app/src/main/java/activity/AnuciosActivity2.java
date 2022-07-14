@@ -6,11 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +40,7 @@ public class AnuciosActivity2 extends AppCompatActivity {
     private AdapterMeusAnucios adapterMeusAnucios;
     private DatabaseReference anuncioPublicoRef;
     private AlertDialog dialog;
+    private String filtroEstado = "";
 
 
     @Override
@@ -54,6 +59,73 @@ public class AnuciosActivity2 extends AppCompatActivity {
         adapterMeusAnucios = new AdapterMeusAnucios(listaAnuncios,this);
         recyclerViewAnunciosPublicos.setAdapter(adapterMeusAnucios);
         recuperarAnunciosPublicos();
+
+
+    }
+    public void filtrarPorEstado(View view){
+        // configurar spinner
+
+
+
+        AlertDialog.Builder diaolgEstado = new AlertDialog.Builder(this);
+        diaolgEstado.setTitle("Selecione o estado desejado");
+        View viewSpinner = getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+        // configurar spinner estados
+        Spinner spinnerEstado = viewSpinner.findViewById(R.id.spinnerFiltro);
+        String[] estados = getResources().getStringArray(R.array.estados);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,estados);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEstado.setAdapter(adapter);
+        diaolgEstado.setView(viewSpinner);
+
+
+        diaolgEstado.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                filtroEstado = spinnerEstado.getSelectedItem().toString();
+                recuperarAnunciosPorEstados();
+
+
+            }
+        });
+        diaolgEstado.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog dialog = diaolgEstado.create();
+        dialog.show();
+
+
+    }
+    public  void recuperarAnunciosPorEstados(){
+        // configurar nó poe estados
+        anuncioPublicoRef = CongiguracaoFirebase.getDatabaseReference()
+                .child("anuncios")
+                .child(filtroEstado);
+        anuncioPublicoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaAnuncios.clear();
+                for(DataSnapshot categorias:snapshot.getChildren()){
+                    for(DataSnapshot anuncios: categorias.getChildren()){
+                        Anucio anucio = anuncios.getValue(Anucio.class);
+                        listaAnuncios.add(anucio);
+
+                    }
+                }
+                Collections.reverse(listaAnuncios);
+                adapterMeusAnucios.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
     public  void recuperarAnunciosPublicos(){
