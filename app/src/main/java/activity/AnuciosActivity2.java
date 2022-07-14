@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +42,9 @@ public class AnuciosActivity2 extends AppCompatActivity {
     private DatabaseReference anuncioPublicoRef;
     private AlertDialog dialog;
     private String filtroEstado = "";
+    private String filtroCategoria = "";
+    private  boolean filtrandoPorEstado = false;
+
 
 
     @Override
@@ -63,9 +67,6 @@ public class AnuciosActivity2 extends AppCompatActivity {
 
     }
     public void filtrarPorEstado(View view){
-        // configurar spinner
-
-
 
         AlertDialog.Builder diaolgEstado = new AlertDialog.Builder(this);
         diaolgEstado.setTitle("Selecione o estado desejado");
@@ -84,6 +85,7 @@ public class AnuciosActivity2 extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 filtroEstado = spinnerEstado.getSelectedItem().toString();
                 recuperarAnunciosPorEstados();
+                filtrandoPorEstado = true;
 
 
             }
@@ -154,6 +156,77 @@ public class AnuciosActivity2 extends AppCompatActivity {
                 Collections.reverse(listaAnuncios);
                 adapterMeusAnucios.notifyDataSetChanged();
                 dialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    public  void filtrarPorCategoria(View view){
+
+        if(filtrandoPorEstado == true){
+            AlertDialog.Builder diaolgCategoria = new AlertDialog.Builder(this);
+            diaolgCategoria.setTitle("Selecione  a categoria desejada");
+            View viewSpinner = getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+            // configurar spinner Categoria
+            Spinner spinnerCategoria = viewSpinner.findViewById(R.id.spinnerFiltro);
+            String[] categoria = getResources().getStringArray(R.array.categoria);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,categoria);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCategoria.setAdapter(adapter);
+            diaolgCategoria.setView(viewSpinner);
+            diaolgCategoria.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    filtroCategoria = spinnerCategoria.getSelectedItem().toString();
+                    recuperarAnunciosPorCategoria();
+
+
+                }
+            });
+            diaolgCategoria.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog dialog = diaolgCategoria.create();
+            dialog.show();
+
+
+        }else {
+            Toast.makeText(
+                    AnuciosActivity2.this,
+                    "Escolha primeiro uma região",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+
+
+    }
+    public  void recuperarAnunciosPorCategoria(){
+        // configurar nó poe estados
+        anuncioPublicoRef = CongiguracaoFirebase.getDatabaseReference()
+                .child("anuncios")
+                .child(filtroEstado)
+                .child(filtroCategoria);
+
+
+        anuncioPublicoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaAnuncios.clear();
+                for(DataSnapshot anuncios: snapshot.getChildren()){
+                    Anucio anucio = anuncios.getValue(Anucio.class);
+                    listaAnuncios.add(anucio);
+
+                }
+                Collections.reverse(listaAnuncios);
+                adapterMeusAnucios.notifyDataSetChanged();
 
             }
 
