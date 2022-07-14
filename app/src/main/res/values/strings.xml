@@ -15,6 +15,8 @@
     <string name="descricao">Descrição</string>
     <string name="cadastrarAnucio">Cadastrar anúcio</string>
     <string name="telefone">Telefone</string>
+    <string name="regiao">Região</string>
+    <string name="categoria">Categoria</string>
     <string-array name="estados">
         <item>AC</item>
         <item>AL</item>
