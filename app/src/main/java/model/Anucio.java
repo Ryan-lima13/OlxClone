@@ -40,6 +40,30 @@ public class Anucio {
                 .setValue(this);
 
     }
+    public  void remover(){
+        String idUsuario = CongiguracaoFirebase.getIdUsuario();
+        DatabaseReference anucioRef = CongiguracaoFirebase.getDatabaseReference()
+                .child("meus_anucios")
+                .child(idUsuario)
+                .child(getIdAnucios());
+        anucioRef.removeValue();
+        removerAnuncioPublico();
+
+
+    }
+    public  void removerAnuncioPublico(){
+
+        DatabaseReference anucioRef = CongiguracaoFirebase.getDatabaseReference()
+                .child("anuncios")
+                .child(getEstado())
+                .child(getCategoria())
+                .child(getIdAnucios());
+        anucioRef.removeValue();
+
+
+    }
+
+
 
 
     public String getIdAnucios() {
